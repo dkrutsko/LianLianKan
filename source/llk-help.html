@@ -9,7 +9,9 @@
 // Imports                                                                    //
 /////////////////////////////////////////////////////////////////////////////-->
 
-<!-- Imports go here -->
+<link rel="import" href="../vendor/core-icon/core-icon.html">
+<link rel="import" href="../vendor/paper-button/paper-button.html">
+<link rel="import" href="../vendor/paper-icon-button/paper-icon-button.html">
 
 
 
@@ -21,7 +23,11 @@
 <template>
 	<link rel="stylesheet" href="llk-help.css" />
 
-	<!-- TODO: Content goes here -->
+	<section id="section" layout vertical fade slide-left>
+
+		<paper-icon-button id="menu" label="&lt;" on-tap="{{showMenu}}"></paper-icon-button>
+
+	</section>
 
 </template>
 
@@ -35,7 +41,11 @@
 
 	Polymer ("llk-help",
 	{
-		// TODO: Scripts go here
+		showMenu : function()
+		{
+			this.parentElement.transist = "left";
+			this.parentElement.selected = "menu";
+		}
 	});
 
 </script>

@@ -9,7 +9,8 @@
 // Imports                                                                    //
 /////////////////////////////////////////////////////////////////////////////-->
 
-<!-- Imports go here -->
+<link rel="import" href="../vendor/core-icon/core-icon.html">
+<link rel="import" href="../vendor/paper-button/paper-button.html">
 
 
 
@@ -21,7 +22,35 @@
 <template>
 	<link rel="stylesheet" href="llk-menu.css" />
 
-	<!-- TODO: Content goes here -->
+	<section id="section" layout vertical fade
+		  slide-left?="{{parentElement.transist === 'left'}}"
+		tile-cascade?="{{parentElement.transist === 'tile'}}">
+
+		<div class="tile" flex vertical layout>
+			<img src="//i.imgur.com/VsAcUKV.png" />
+		</div>
+		<div class="tile" flex vertical layout>
+			<paper-button id="easy" label="Easy" on-tap="{{playGame}}"></paper-button>
+		</div>
+		<div class="tile" flex vertical layout>
+			<paper-button id="medium" label="Medium" on-tap="{{playGame}}"></paper-button>
+		</div>
+		<div class="tile" flex vertical layout>
+			<paper-button id="expert" label="Expert" on-tap="{{playGame}}"></paper-button>
+		</div>
+		<div class="tile" flex vertical layout>
+			<paper-button id="help" label="How To Play" on-tap="{{showHelp}}"></paper-button>
+		</div>
+		<div class="tile" flex vertical layout>
+			<a href="//github.com/dkrutsko/LianLianKan">
+				<paper-button id="repo" label="Repository"></paper-button>
+			</a>
+		</div>
+		<div class="tile" flex vertical layout>
+			<p>Created By David Krutsko</p>
+		</div>
+
+	</section>
 
 </template>
 
@@ -35,7 +64,23 @@
 
 	Polymer ("llk-menu",
 	{
-		// TODO: Scripts go here
+		playGame : function (event)
+		{
+			var size = 6;
+			// Determine game-board size using target ID
+			if (event.target.id === "medium") size =  8;
+			if (event.target.id === "expert") size = 12;
+
+			// TODO: Start the game
+			this.parentElement.transist = "tile";
+			this.parentElement.selected = "game";
+		},
+
+		showHelp : function()
+		{
+			this.parentElement.transist = "left";
+			this.parentElement.selected = "help";
+		}
 	});
 
 </script>

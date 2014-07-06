@@ -9,7 +9,15 @@
 // Imports                                                                    //
 /////////////////////////////////////////////////////////////////////////////-->
 
-<!-- Imports go here -->
+<link rel="import" href="llk-menu.html">
+<link rel="import" href="llk-help.html">
+<link rel="import" href="llk-game.html">
+<link rel="import" href="llk-icons.html">
+<link rel="import" href="slide-all.html">
+
+<link rel="import" href="../vendor/core-animated-pages/core-animated-pages.html">
+<link rel="import" href="../vendor/core-animated-pages/transitions/tile-cascade.html">
+<link rel="import" href="../vendor/core-animated-pages/transitions/cross-fade.html">
 
 
 
@@ -21,7 +29,11 @@
 <template>
 	<link rel="stylesheet" href="llk-main.css" />
 
-	<!-- TODO: Content goes here -->
+	<core-animated-pages selected="{{selected}}" transitions="slide-left cross-fade tile-cascade">
+		<llk-game name="game"></llk-game>
+		<llk-menu name="menu"></llk-menu>
+		<llk-help name="help"></llk-help>
+	</core-animated-pages>
 
 </template>
 
@@ -35,7 +47,8 @@
 
 	Polymer ("llk-main",
 	{
-		// TODO: Scripts go here
+		transist : "",
+		selected : "menu"
 	});
 
 </script>

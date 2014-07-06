@@ -21,7 +21,19 @@
 <template>
 	<link rel="stylesheet" href="llk-game.css" />
 
-	<!-- TODO: Content goes here -->
+	<section id="section" layout vertical cross-fade>
+
+		<div class="tile" flex vertical layout>
+			<paper-button id="paper_button" label="Easy" on-tap="{{TAP}}"></paper-button>
+		</div>
+		<div class="tile" flex vertical layout>
+			<paper-button id="Paper-button1" label="Medium"></paper-button>
+		</div>
+		<div class="tile" flex vertical layout>
+			<paper-button id="Paper-button2" label="Hard"></paper-button>
+		</div>
+
+	</section>
 
 </template>
 
@@ -35,7 +47,11 @@
 
 	Polymer ("llk-game",
 	{
-		// TODO: Scripts go here
+		TAP : function()
+		{
+			this.parentElement.transist = "tile";
+			this.parentElement.selected = "menu";
+		},
 	});
 
 </script>

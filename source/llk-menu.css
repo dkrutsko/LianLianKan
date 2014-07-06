@@ -11,4 +11,14 @@
 /* Menu                                                                       */
 /*----------------------------------------------------------------------------*/
 
-/* TODO: CSS goes here */
+:host {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+}
+#paper_button {
+	left: 220px;
+	top: 170px;
+	position: absolute;
+}
