@@ -8,7 +8,125 @@
 //////////////////////////////////////////////////////////////////////////////*/
 
 /*----------------------------------------------------------------------------*/
-/* Help                                                                       */
+/* Default                                                                    */
 /*----------------------------------------------------------------------------*/
 
-/* TODO: CSS goes here */
+section
+{
+	padding: 30px 10px 10px 10px;
+}
+
+core-icon
+{
+	cursor: pointer;
+	margin: 0px 444px -36px 0px;
+}
+
+h1
+{
+	  font-size: 36px;
+	font-weight: 600;
+	line-height: 36px;
+
+	color: rgb(110, 110, 110);
+	margin: 0px 0px 10px 0px;
+}
+
+h2
+{
+	  font-size: 18px;
+	font-weight: 400;
+	line-height: 24px;
+	text-align: center;
+
+	color: rgb(120, 120, 120);
+	margin: 0px 0px 10px 0px;
+}
+
+h3
+{
+	  font-size: 18px;
+	font-weight: 300;
+	line-height: 18px;
+
+	color: rgb(140, 140, 140);
+	margin: 0px 0px 10px 0px;
+}
+
+section .example
+{
+	 width: 220px;
+	height: 220px;
+
+	margin: 10px;
+	background: url("llk-help.png");
+	background-size: 440px 440px;
+}
+
+section .example-1 { background-position:    0px    0px; }
+section .example-2 { background-position: -220px    0px; }
+section .example-3 { background-position:    0px -220px; }
+section .example-4 { background-position: -220px -220px; }
+
+
+
+/*----------------------------------------------------------------------------*/
+/* Mobile                                                                     */
+/*----------------------------------------------------------------------------*/
+
+@media all and (max-width: 540px)
+{
+	section
+	{
+		padding: 15px 10px 10px 10px;
+	}
+
+	core-icon
+	{
+		margin: 0px 260px -34px 0px;
+	}
+
+	h1
+	{
+		  font-size: 32px;
+		line-height: 32px;
+	}
+
+	h2
+	{
+		  font-size: 16px;
+		line-height: 22px;
+	}
+
+	h3
+	{
+		  font-size: 16px;
+		line-height: 16px;
+		margin-bottom: 8px;
+	}
+
+	section .example
+	{
+		 width: 130px;
+		height: 130px;
+
+		margin: 8px;
+		background-size: 260px 260px;
+	}
+
+	section .example-1 { background-position:    0px    0px; }
+	section .example-2 { background-position: -130px    0px; }
+	section .example-3 { background-position:    0px -130px; }
+	section .example-4 { background-position: -130px -130px; }
+}
+
+
+
+/*----------------------------------------------------------------------------*/
+/* Retina                                                                     */
+/*----------------------------------------------------------------------------*/
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)
+{
+	section .example { background-image: url("llk-help@2x.png"); }
+}

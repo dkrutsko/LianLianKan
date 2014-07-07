@@ -9,7 +9,6 @@
 // Imports                                                                    //
 /////////////////////////////////////////////////////////////////////////////-->
 
-<link rel="import" href="../vendor/core-icon/core-icon.html">
 <link rel="import" href="../vendor/paper-button/paper-button.html">
 
 
@@ -25,18 +24,16 @@
 	<section layout vertical center center-justified fade
 		slide-left?="{{parentElement.transist === 'left'}}">
 
-		<div id="logo" cross-fade?="{{parentElement.transist === 'tile'}}"></div>
-		<div    fade tile-cascade?="{{parentElement.transist === 'tile'}}">
-
+		<div id="logo"
+			   cross-fade?="{{parentElement.transist === 'tile'}}"></div>
+		<div tile-cascade?="{{parentElement.transist === 'tile'}}" fade>
 			<div><paper-button id="easy"   on-tap="{{playGame}}" label="Easy"       ></paper-button></div>
 			<div><paper-button id="medium" on-tap="{{playGame}}" label="Medium"     ></paper-button></div>
 			<div><paper-button id="expert" on-tap="{{playGame}}" label="Expert"     ></paper-button></div>
 			<div><paper-button id="help"   on-tap="{{showHelp}}" label="How to Play"></paper-button></div>
-			<div><a id="auth" href="//dave.krutsko.net/">Created by DAVID KRUTSKO</a></div>
-
 		</div>
-	</section>
 
+	</section>
 </template>
 
 

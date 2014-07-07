@@ -10,8 +10,6 @@
 /////////////////////////////////////////////////////////////////////////////-->
 
 <link rel="import" href="../vendor/core-icon/core-icon.html">
-<link rel="import" href="../vendor/paper-button/paper-button.html">
-<link rel="import" href="../vendor/paper-icon-button/paper-icon-button.html">
 
 
 
@@ -25,10 +23,35 @@
 
 	<section layout vertical center center-justified fade slide-left>
 
-		<paper-icon-button id="menu" label="&lt;" on-tap="{{showMenu}}"></paper-icon-button>
+		<core-icon size="32"
+			icon="llk-icons:back" on-tap="{{showMenu}}"></core-icon>
+
+		<h1>How to Play</h1>
+		<h2>This is a a test description</h2>
+
+		<div layout horizontal>
+			<div layout vertical center>
+				<div class="example example-1"></div>
+				<h3>This is a test</h3>
+			</div>
+			<div layout vertical center>
+				<div class="example example-2" id="test"></div>
+				<h3>This is a test</h3>
+			</div>
+		</div>
+
+		<div layout horizontal>
+			<div layout vertical center>
+				<div class="example example-3"></div>
+				<h3>This is a test</h3>
+			</div>
+			<div layout vertical center>
+				<div class="example example-4"></div>
+				<h3>This is a test</h3>
+			</div>
+		</div>
 
 	</section>
-
 </template>
 
 
