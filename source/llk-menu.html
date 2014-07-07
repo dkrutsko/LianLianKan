@@ -22,34 +22,19 @@
 <template>
 	<link rel="stylesheet" href="llk-menu.css" />
 
-	<section id="section" layout vertical fade
-		  slide-left?="{{parentElement.transist === 'left'}}"
-		tile-cascade?="{{parentElement.transist === 'tile'}}">
+	<section layout vertical center center-justified fade
+		slide-left?="{{parentElement.transist === 'left'}}">
 
-		<div class="tile" flex vertical layout>
-			<img src="//i.imgur.com/VsAcUKV.png" />
-		</div>
-		<div class="tile" flex vertical layout>
-			<paper-button id="easy" label="Easy" on-tap="{{playGame}}"></paper-button>
-		</div>
-		<div class="tile" flex vertical layout>
-			<paper-button id="medium" label="Medium" on-tap="{{playGame}}"></paper-button>
-		</div>
-		<div class="tile" flex vertical layout>
-			<paper-button id="expert" label="Expert" on-tap="{{playGame}}"></paper-button>
-		</div>
-		<div class="tile" flex vertical layout>
-			<paper-button id="help" label="How To Play" on-tap="{{showHelp}}"></paper-button>
-		</div>
-		<div class="tile" flex vertical layout>
-			<a href="//github.com/dkrutsko/LianLianKan">
-				<paper-button id="repo" label="Repository"></paper-button>
-			</a>
-		</div>
-		<div class="tile" flex vertical layout>
-			<p>Created By David Krutsko</p>
-		</div>
+		<div id="logo" cross-fade?="{{parentElement.transist === 'tile'}}"></div>
+		<div    fade tile-cascade?="{{parentElement.transist === 'tile'}}">
 
+			<div><paper-button id="easy"   on-tap="{{playGame}}" label="Easy"       ></paper-button></div>
+			<div><paper-button id="medium" on-tap="{{playGame}}" label="Medium"     ></paper-button></div>
+			<div><paper-button id="expert" on-tap="{{playGame}}" label="Expert"     ></paper-button></div>
+			<div><paper-button id="help"   on-tap="{{showHelp}}" label="How to Play"></paper-button></div>
+			<div><a id="auth" href="//dave.krutsko.net/">Created by DAVID KRUTSKO</a></div>
+
+		</div>
 	</section>
 
 </template>

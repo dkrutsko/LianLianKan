@@ -8,17 +8,98 @@
 //////////////////////////////////////////////////////////////////////////////*/
 
 /*----------------------------------------------------------------------------*/
-/* Menu                                                                       */
+/* Default                                                                    */
 /*----------------------------------------------------------------------------*/
 
-:host {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	box-sizing: border-box;
+section
+{
+	padding: 10px;
 }
-#paper_button {
-	left: 220px;
-	top: 170px;
-	position: absolute;
+
+#logo
+{
+	 width: 544px;
+	height: 274px;
+	z-index: 1000;
+	background: url("llk-logo.svg");
+	background-size: 544px 274px;
+	margin: 0px 0px 12px 0px;
+}
+
+paper-button
+{
+	 width: 448px;
+	height: auto;
+
+	  font-size: 34px;
+	font-weight: 600;
+	line-height: 34px;
+
+	text-transform: none;
+	border-radius: 6px;
+	margin: 0px 0px 12px 0px;
+	color: rgb(245, 245, 245);
+
+	transition: background 0.25s ease-in-out;
+}
+
+#auth
+{
+	  font-size: 22px;
+	font-weight: 600;
+
+	display: block;
+	display: none;
+	outline: none;
+	margin: 6px 0px 0px 0px;
+	text-decoration: none;
+
+	transition: color 0.25s ease-in-out;
+}
+
+paper-button       { background: rgb(140, 140, 140); }
+paper-button:hover { background: rgb(120, 120, 120); }
+
+  #easy            { background: rgb( 92, 153,  31); }
+#medium            { background: rgb(242, 178,  48); }
+#expert            { background: rgb(229,  99,  34); }
+
+  #easy:hover      { background: rgb( 77, 128,  26); }
+#medium:hover      { background: rgb(217, 154,  43); }
+#expert:hover      { background: rgb(204,  88,  31); }
+
+#auth              {      color: rgb(170, 170, 170); }
+#auth:visited      {      color: rgb(170, 170, 170); }
+#auth:hover        {      color: rgb(120, 120, 120); }
+
+
+
+/*----------------------------------------------------------------------------*/
+/* Mobile                                                                     */
+/*----------------------------------------------------------------------------*/
+
+@media all and (max-width: 540px)
+{
+	#logo
+	{
+		 width: 288px;
+		height: 145px;
+		background-size: 288px 145px;
+	}
+
+	paper-button
+	{
+		 width: 240px;
+		height: auto;
+
+		  font-size: 26px;
+		line-height: 26px;
+
+		margin-bottom: 6px;
+	}
+
+	#auth
+	{
+		font-size: 16px;
+	}
 }

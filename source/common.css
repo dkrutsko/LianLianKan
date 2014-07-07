@@ -1,0 +1,115 @@
+/*//////////////////////////////////////////////////////////////////////////////
+// -------------------------------------------------------------------------- //
+//                                                                            //
+//                        (C) 2014-2014  David Krutsko                        //
+//                        See LICENSE.md for copyright                        //
+//                                                                            //
+// -------------------------------------------------------------------------- //
+//////////////////////////////////////////////////////////////////////////////*/
+
+/*----------------------------------------------------------------------------*/
+/* Base                                                                       */
+/*----------------------------------------------------------------------------*/
+
+html
+{
+	 width: 100%;
+	height: 100%;
+	font-family: "Open Sans", sans-serif;
+	overflow: hidden;
+}
+
+body
+{
+	 width: 100%;
+	height: 100%;
+	background: rgb(245, 245, 245);
+}
+
+*
+{
+	-webkit-touch-callout: none;
+
+	-webkit-user-select: none;
+	    -ms-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
+}
+
+::-moz-selection
+{
+	     color: rgb(240, 240, 240);
+	background: rgb(180, 180, 180);
+	text-shadow: none;
+}
+
+::selection
+{
+	     color: rgb(240, 240, 240);
+	background: rgb(180, 180, 180);
+	text-shadow: none;
+}
+
+canvas, img, svg, video
+{
+	vertical-align: middle;
+}
+
+fieldset
+{
+	 border: 0;
+	 margin: 0;
+	padding: 0;
+}
+
+textarea
+{
+	resize: vertical;
+}
+
+.clearfix
+{
+	*zoom: 1;
+}
+
+.clearfix:before,
+.clearfix:after
+{
+	content: "";
+	display: table;
+}
+
+.clearfix:after
+{
+	clear: both;
+}
+
+
+
+/*----------------------------------------------------------------------------*/
+/* Fonts                                                                      */
+/*----------------------------------------------------------------------------*/
+
+@font-face
+{
+	font-family: "Open Sans";
+	font-weight: 300;
+	font-style: normal;
+	src: url("open-sans-300.woff") format("woff");
+}
+
+@font-face
+{
+	font-family: "Open Sans";
+	font-weight: 400;
+	font-style: normal;
+	src: url("open-sans-400.woff") format("woff");
+}
+
+@font-face
+{
+	font-family: "Open Sans";
+	font-weight: 600;
+	font-style: normal;
+	src: url("open-sans-600.woff") format("woff");
+}
