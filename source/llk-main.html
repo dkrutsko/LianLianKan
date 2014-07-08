@@ -18,6 +18,7 @@
 <link rel="import" href="../vendor/core-animated-pages/core-animated-pages.html">
 <link rel="import" href="../vendor/core-animated-pages/transitions/tile-cascade.html">
 <link rel="import" href="../vendor/core-animated-pages/transitions/cross-fade.html">
+<link rel="import" href="../vendor/core-localstorage/core-localstorage.html">
 
 
 
@@ -34,6 +35,10 @@
 		<llk-help name="help" menu="{{menu}}" game="{{game}}"></llk-help>
 
 	</core-animated-pages>
+
+	<core-localstorage name="llk-best-score-easy"   value="{{game.bestScores.easy  }}"></core-localstorage>
+	<core-localstorage name="llk-best-score-medium" value="{{game.bestScores.medium}}"></core-localstorage>
+	<core-localstorage name="llk-best-score-expert" value="{{game.bestScores.expert}}"></core-localstorage>
 </template>
 
 

@@ -38,7 +38,7 @@
 				<h1>{{game.currScore}}</h1><h2>SCORE</h2>
 			</div>
 			<div layout vertical center id="best">
-				<h1>{{game.bestScore[game.difficulty]}}</h1><h2>BEST</h2>
+				<h1>{{game.bestScores[game.difficulty]}}</h1><h2>BEST</h2>
 			</div>
 
 		</div>
@@ -46,10 +46,14 @@
 		<paper-progress id="timer" class="container" value="{{game.timeLeft}}"></paper-progress>
 
 		<div id="board" class="container" layout vertical>
-			<template repeat="{{i in game.boardSize}}">
+			<template repeat="{{y in game.boardArray}}">
 				<div class="tiles {{game.difficulty}}" flex layout horizontal>
-					<template repeat="{{i in game.boardSize}}">
-						<paper-button class="tile {{game.difficulty}}" flex istoggle icon="llk-icons:icon-2"></paper-button>
+					<template repeat="{{x in game.boardArray}}">
+
+						<paper-button flex istoggle class="tile {{game.difficulty}}"
+							data-x="{{x}}" data-y="{{y}}"  data-type="{{game.gameBoard[y][x]}}"
+							on-up="{{selected}}" icon="llk-icons:icon-{{game.gameBoard[y][x]}}"></paper-button>
+
 					</template>
 				</div>
 			</template>
@@ -81,6 +85,12 @@
 		{
 			this.menu.transist = "tile";
 			this.menu.selected = "menu";
+			this.game.exit();
+		},
+
+		selected : function()
+		{
+			this.game.select (event.target);
 		}
 	});
 
