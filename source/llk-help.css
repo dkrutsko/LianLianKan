@@ -34,9 +34,9 @@ h1
 
 h2
 {
-	  font-size: 18px;
+	  font-size: 20px;
 	font-weight: 400;
-	line-height: 24px;
+	line-height: 20px;
 	text-align: center;
 
 	color: rgb(120, 120, 120);
@@ -95,15 +95,16 @@ section .example-4 { background-position: -220px -220px; }
 
 	h2
 	{
-		  font-size: 16px;
-		line-height: 22px;
+		  font-size: 12px;
+		line-height: 12px;
+		margin-bottom: 4px;
 	}
 
 	h3
 	{
-		  font-size: 16px;
-		line-height: 16px;
-		margin-bottom: 8px;
+		  font-size: 12px;
+		line-height: 12px;
+		margin-bottom: 6px;
 	}
 
 	section .example

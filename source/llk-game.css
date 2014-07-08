@@ -30,13 +30,13 @@ paper-button::shadow #ripple
 #restart
 {
 	cursor: pointer;
-	margin: 14px 14px 0px  0px;
+	margin: 14px 16px 0px  0px;
 }
 
 #menu
 {
 	cursor: pointer;
-	margin: 14px 14px 0px -8px;
+	margin: 14px 16px 0px -8px;
 }
 
 #score, #best
@@ -167,25 +167,46 @@ paper-button::shadow #ripple
 	margin: 6px 0px 0px 0px;
 }
 
-#add-time, #get-hint
+#add-time, #get-hint, #kill-tile
 {
 	  font-size: 16px;
 	font-weight: 600;
 	line-height: 22px;
 
+	text-transform: none;
 	border-radius: 6px;
 	margin: 0px 0px 0px 0px;
-	color: rgb(245, 245, 245);
+	color: rgb(110, 110, 110);
 
+	border: 2px solid rgb(110, 110, 110);
 	transition: background 0.25s ease-in-out;
-	background: rgb(160, 160, 160);
+	background: rgb(225, 225, 225);
 }
 
-#add-time { margin-right: 5px; }
-#get-hint {  margin-left: 5px; }
-#add-time:hover, #get-hint:hover
+#add-time
 {
-	background: rgb(140, 140, 140);
+	   border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+#get-hint
+{
+	border-radius: 0px;
+	 border-left-width: 0px;
+	border-right-width: 0px;
+}
+
+#kill-tile
+{
+	   border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+
+#add-time:hover,
+#get-hint:hover,
+#kill-tile:hover
+{
+	background: rgb(205, 205, 205);
 }
 
 
@@ -209,12 +230,12 @@ paper-button::shadow #ripple
 
 	#restart
 	{
-		margin: 8px 10px 0px  0px;
+		margin: 8px 12px 0px  0px;
 	}
 
 	#menu
 	{
-		margin: 8px 10px 0px -8px;
+		margin: 8px 12px 0px -8px;
 	}
 
 	#score, #best
@@ -303,12 +324,9 @@ paper-button::shadow #ripple
 		margin: -3px 0px 0px -1px;
 	}
 
-	#add-time, #get-hint
+	#add-time, #get-hint, #kill-tile
 	{
-		  font-size: 12px;
+		  font-size: 10px;
 		line-height: 18px;
 	}
-
-	#add-time { margin-right: 4px; }
-	#get-hint {  margin-left: 4px; }
 }

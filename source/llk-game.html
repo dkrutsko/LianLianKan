@@ -60,8 +60,9 @@
 		</div>
 
 		<div class="container" layout horizontal>
-			<paper-button id="add-time" flex label="{{game.addTimeLeft}}" on-tap="{{addTime}}"></paper-button>
-			<paper-button id="get-hint" flex label="{{game.getHintLeft}}" on-tap="{{getHint}}"></paper-button>
+			<paper-button flex id="add-time"  on-tap="{{addTime }}" label="Add Time: {{game.addTimeLeft}}"    ></paper-button>
+			<paper-button flex id="get-hint"  on-tap="{{getHint }}" label="Get Hint: {{game.getHintLeft}}"    ></paper-button>
+			<paper-button flex id="kill-tile" on-tap="{{killTile}}" label="Remove Tile: {{game.killTileLeft}}"></paper-button>
 		</div>
 
 	</section>
@@ -77,9 +78,10 @@
 
 	Polymer ("llk-game",
 	{
-		restart : function() { this.game.restart(); },
-		addTime : function() { this.game.addTime(); },
-		getHint : function() { this.game.getHint(); },
+		restart  : function() { this.game.restart (); },
+		addTime  : function() { this.game.addTime (); },
+		getHint  : function() { this.game.getHint (); },
+		killTile : function() { this.game.killTile(); },
 
 		showMenu : function()
 		{
@@ -88,7 +90,7 @@
 			this.game.exit();
 		},
 
-		selected : function()
+		selected : function (event)
 		{
 			this.game.select (event.target);
 		}

@@ -42,8 +42,10 @@ Polymer ("llk-main",
 
 		timeLeft		: 0,
 		timeout			: null,
+
 		addTimeLeft		: 0,
 		getHintLeft		: 0,
+		killTileLeft	: 0,
 
 		gameBoard		: null,		// [y][x]
 		selected		: null,
@@ -59,10 +61,11 @@ Polymer ("llk-main",
 		restart : function (difficulty)
 		{
 			// Reset game variables
-			this.currScore   = 0;
-			this.timeLeft    = 100;
-			this.addTimeLeft = 5;
-			this.getHintLeft = 5;
+			this.currScore    = 0;
+			this.timeLeft     = 100;
+			this.addTimeLeft  = 5;
+			this.getHintLeft  = 5;
+			this.killTileLeft = 5;
 
 			// Check for the difficulty argument
 			if (typeof difficulty !== "undefined")
@@ -154,8 +157,8 @@ Polymer ("llk-main",
 								// Reset variables
 								++this.addTimeLeft;
 								++this.getHintLeft;
+								++this.killTileLeft;
 								this.currScore += 40;
-								this.timeLeft = 100;
 
 								// Create board
 								this._create();
@@ -187,9 +190,20 @@ Polymer ("llk-main",
 
 		getHint : function()
 		{
-			if (this.addTimeLeft)
+			if (this.getHintLeft)
 			{
-				--this.addTimeLeft;
+				--this.getHintLeft;
+				// TODO:
+			}
+		},
+
+		////////////////////////////////////////////////////////////////////////////////
+
+		killTile : function()
+		{
+			if (this.killTileLeft)
+			{
+				--this.killTileLeft;
 				// TODO:
 			}
 		},
