@@ -46,6 +46,17 @@
 		<paper-progress id="timer" class="container" value="{{game.timeLeft}}"></paper-progress>
 
 		<div id="board" class="container" layout vertical>
+			<div class="message" layout vertical center center-justified hidden?="{{game.timeLeft}}" on-tap="{{restart}}">
+
+				<h1>TIME'S UP!</h1>
+				<template if="{{game.currScore <  game.bestScores[game.difficulty]}}">
+					<h2>Ready to try again?</h2></template>
+				<template if="{{game.currScore >= game.bestScores[game.difficulty]}}">
+					<h2>A new personal best!</h2></template>
+				<h1>{{game.currScore}}</h1>
+
+			</div>
+
 			<template repeat="{{y in game.boardArray}}">
 				<div class="tiles {{game.difficulty}}" flex layout horizontal>
 					<template repeat="{{x in game.boardArray}}">
@@ -60,9 +71,17 @@
 		</div>
 
 		<div class="container" layout horizontal>
-			<paper-button flex id="add-time"  on-tap="{{addTime }}" label="Add Time: {{game.addTimeLeft}}"    ></paper-button>
-			<paper-button flex id="get-hint"  on-tap="{{getHint }}" label="Get Hint: {{game.getHintLeft}}"    ></paper-button>
-			<paper-button flex id="kill-tile" on-tap="{{killTile}}" label="Remove Tile: {{game.killTileLeft}}"></paper-button>
+
+			<paper-button flex id="add-time"  hidden?="{{!game.timeLeft}}"
+				on-tap="{{addTime }}" label="Add Time: {{game.addTimeLeft}}"></paper-button>
+
+			<paper-button flex id="get-hint"  hidden?="{{!game.timeLeft}}"
+				on-tap="{{getHint }}" label="Get Hint: {{game.getHintLeft}}"></paper-button>
+
+			<paper-button flex id="kill-pair" hidden?="{{!game.timeLeft}}"
+				on-tap="{{killPair}}" label="Remove Pair: {{game.killPairLeft}}"
+				active?="{{game.killPairFlag}}"></paper-button>
+
 		</div>
 
 	</section>
@@ -81,7 +100,7 @@
 		restart  : function() { this.game.restart (); },
 		addTime  : function() { this.game.addTime (); },
 		getHint  : function() { this.game.getHint (); },
-		killTile : function() { this.game.killTile(); },
+		killPair : function() { this.game.killPair(); },
 
 		showMenu : function()
 		{

@@ -69,6 +69,17 @@ textarea
 	resize: vertical;
 }
 
+noscript h1
+{
+	  font-size: 24px;
+	font-weight: 600;
+	line-height: 24px;
+	text-align: center;
+
+	color: rgb(180, 20, 20);
+	margin: 160px 0px 0px 0px;
+}
+
 
 
 /*----------------------------------------------------------------------------*/
@@ -97,4 +108,12 @@ textarea
 	font-weight: 600;
 	font-style: normal;
 	src: url("open-sans-600.woff") format("woff");
+}
+
+@font-face
+{
+	font-family: "Open Sans";
+	font-weight: 700;
+	font-style: normal;
+	src: url("open-sans-700.woff") format("woff");
 }

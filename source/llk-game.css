@@ -99,9 +99,9 @@ paper-button::shadow #ripple
 
 .tile:hover { background: rgb(205, 205, 205); }
 
-.tiles:nth-child(2) .tile:nth-child(2) {     border-top-left-radius: 6px; }
+.tiles:nth-child(3) .tile:nth-child(2) {     border-top-left-radius: 6px; }
 .tiles:last-child   .tile:nth-child(2) {  border-bottom-left-radius: 6px; }
-.tiles:nth-child(2) .tile:last-child   {    border-top-right-radius: 6px; }
+.tiles:nth-child(3) .tile:last-child   {    border-top-right-radius: 6px; }
 .tiles:last-child   .tile:last-child   { border-bottom-right-radius: 6px; }
 
  .tile:last-child       {  border-right-width: 2px; }
@@ -111,6 +111,7 @@ paper-button::shadow #ripple
 {
 	 width: 460px;
 	height: 456px;
+	position: relative;
 }
 
 .easy .tile::shadow #content
@@ -167,7 +168,65 @@ paper-button::shadow #ripple
 	margin: 6px 0px 0px 0px;
 }
 
-#add-time, #get-hint, #kill-tile
+@-webkit-keyframes fade-in
+{
+	  0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+@-moz-keyframes fade-in
+{
+	  0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+@keyframes fade-in
+{
+	  0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+.message
+{
+	 width: 460px;
+	height: 456px;
+	z-index: 1000;
+	position: absolute;
+	left: 0; top: 0;
+	cursor:pointer;
+
+	border-radius: 6px;
+	background: rgba(225, 225, 225, 0.95);
+
+	-webkit-animation: fade-in 800ms ease;
+	   -moz-animation: fade-in 800ms ease;
+	        animation: fade-in 800ms ease;
+	-webkit-animation-fill-mode: both;
+	   -moz-animation-fill-mode: both;
+	        animation-fill-mode: both;
+}
+
+.message h1
+{
+	  font-size: 55px;
+	font-weight: 700;
+	line-height: 55px;
+
+	color: rgb(110, 110, 110);
+	margin: 0px 0px 0px 0px;
+}
+
+.message h2
+{
+	  font-size: 30px;
+	font-weight: 600;
+	line-height: 30px;
+
+	color: rgb(110, 110, 110);
+	margin: 0px 0px 10px 0px;
+}
+
+#add-time, #get-hint, #kill-pair
 {
 	  font-size: 16px;
 	font-weight: 600;
@@ -196,15 +255,15 @@ paper-button::shadow #ripple
 	border-right-width: 0px;
 }
 
-#kill-tile
+#kill-pair
 {
 	   border-top-left-radius: 0px;
 	border-bottom-left-radius: 0px;
 }
 
-#add-time:hover,
-#get-hint:hover,
-#kill-tile:hover
+ #add-time:hover,
+ #get-hint:hover,
+#kill-pair:hover
 {
 	background: rgb(205, 205, 205);
 }
@@ -324,7 +383,27 @@ paper-button::shadow #ripple
 		margin: -3px 0px 0px -1px;
 	}
 
-	#add-time, #get-hint, #kill-tile
+	.message
+	{
+		 width: 276px;
+		height: 288px;
+	}
+
+	.message h1
+	{
+		  font-size: 32px;
+		line-height: 32px;
+		margin: 0px 0px 0px 0px;
+	}
+
+	.message h2
+	{
+		  font-size: 18px;
+		line-height: 18px;
+		margin: 0px 0px 5px 0px;
+	}
+
+	#add-time, #get-hint, #kill-pair
 	{
 		  font-size: 10px;
 		line-height: 18px;

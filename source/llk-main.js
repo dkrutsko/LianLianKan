@@ -17,8 +17,8 @@ Polymer ("llk-main",
 {
 	menu :
 	{
-		transist		: "left",
-		selected		: "menu"
+		transist		: "left",		// State transition to use
+		selected		: "menu"		// The current game state
 	},
 
 	game :
@@ -27,28 +27,30 @@ Polymer ("llk-main",
 		// Properties                                                                 //
 		//----------------------------------------------------------------------------//
 
-		boardArray		: [],
-		boardSize		: 0,
-		difficulty		: "easy",
-		totalTypes		: 8,
+		boardArray		: [],			// Board size in array form (for templates)
+		boardSize		: 0,			// Actual size of the board
+		difficulty		: "easy",		// Current difficulty setting
+		totalTypes		: 8,			// Number of available icons
 
-		currScore		: 0,
+		currScore		: 0,			// Current user game score
 		bestScores :
 		{
-			"easy"		: 0,
-			"medium"	: 0,
-			"expert"	: 0
+			"easy"		: 0,			// Best user score on easy
+			"medium"	: 0,			// Best user score on medium
+			"expert"	: 0				// Best user score on expert
 		},
 
-		timeLeft		: 0,
-		timeout			: null,
+		timeLeft		: 0,			// Time remaining (out of 100)
+		timeout			: null,			// Handle to timeLeft interval
 
-		addTimeLeft		: 0,
-		getHintLeft		: 0,
-		killTileLeft	: 0,
+		addTimeLeft		: 0,			// Number of available add time's
+		getHintLeft		: 0,			// Number of available get hint's
+		killPairLeft	: 0,			// Number of available kill pair's
 
-		gameBoard		: null,		// [y][x]
-		selected		: null,
+		gameBoard		: null,			// The game board model [y][x]=tile
+		selected		: null,			// Currently selected board element
+
+		killPairFlag	: false,		// Flag for enabling pair killing
 
 
 
@@ -57,15 +59,19 @@ Polymer ("llk-main",
 		//----------------------------------------------------------------------------//
 
 		////////////////////////////////////////////////////////////////////////////////
+		/// Resets the game and creates a new board using the specified difficulty.
 
 		restart : function (difficulty)
 		{
 			// Reset game variables
 			this.currScore    = 0;
 			this.timeLeft     = 100;
+
 			this.addTimeLeft  = 5;
 			this.getHintLeft  = 5;
-			this.killTileLeft = 5;
+			this.killPairLeft = 5;
+
+			this.killPairFlag = false;
 
 			// Check for the difficulty argument
 			if (typeof difficulty !== "undefined")
@@ -81,6 +87,13 @@ Polymer ("llk-main",
 			for (var i = 0; i < this.boardSize; ++i)
 				this.boardArray.push (i);
 
+			if (this.selected !== null)
+			{
+				// Unselect previously selected element
+				this.selected.removeAttribute ("active");
+				this.selected = null;
+			}
+
 			// Create board
 			this._create();
 
@@ -92,6 +105,7 @@ Polymer ("llk-main",
 		},
 
 		////////////////////////////////////////////////////////////////////////////////
+		/// Performs all selection logic on the specified element.
 
 		select : function (element)
 		{
@@ -99,13 +113,16 @@ Polymer ("llk-main",
 			var tx = element.getAttribute ("data-x"   );
 			var ty = element.getAttribute ("data-y"   );
 			var tt = element.getAttribute ("data-type");
+			tx = parseInt (tx);
+			ty = parseInt (ty);
+			tt = parseInt (tt);
 
 			// Check and ignore if empty area has been selected
-			if (tt === "0") element.removeAttribute ("active");
+			if (tt === 0) element.removeAttribute ("active");
 
 			else
 			{
-				// Select if non selected
+				// Select if not selected
 				if (this.selected === null)
 					this.selected = element;
 
@@ -121,16 +138,27 @@ Polymer ("llk-main",
 						var sx = this.selected.getAttribute ("data-x"   );
 						var sy = this.selected.getAttribute ("data-y"   );
 						var st = this.selected.getAttribute ("data-type");
+						sx = parseInt (sx);
+						sy = parseInt (sy);
+						st = parseInt (st);
 
 						// Unselect previously selected element
 						this.selected.removeAttribute ("active");
 
-						// Check whether types match then check the path
-						if (st !== tt || !this._checkPath (sx, sy, tx, ty))
+						// Check if types match and check path
+						if (st !== tt || (!this.killPairFlag &&
+							!this._checkPath (sx, sy, tx, ty)))
 							this.selected = element;
 
 						else
 						{
+							if (this.killPairFlag)
+							{
+								// Reset the kill pair flag
+								this.killPairFlag = false;
+								--this.killPairLeft;
+							}
+
 							// Deselect the selected element
 							element.removeAttribute ("active");
 
@@ -157,14 +185,14 @@ Polymer ("llk-main",
 								// Reset variables
 								++this.addTimeLeft;
 								++this.getHintLeft;
-								++this.killTileLeft;
-								this.currScore += 40;
+								++this.killPairLeft;
+								this.currScore += 25;
 
 								// Create board
 								this._create();
 							}
 
-							this.currScore += 10;
+							this.currScore += 5;
 							// Update the current score and check if new best score
 							if (this.bestScores[this.difficulty] < this.currScore)
 								this.bestScores[this.difficulty] = this.currScore;
@@ -175,40 +203,49 @@ Polymer ("llk-main",
 		},
 
 		////////////////////////////////////////////////////////////////////////////////
+		/// Add's additional time, includes eligibility checking.
 
 		addTime : function()
 		{
 			if (this.addTimeLeft &&
 				this.timeLeft <= 85)
 			{
-				--this.addTimeLeft;
 				this.timeLeft += 15;
+				--this.addTimeLeft;
 			}
 		},
 
 		////////////////////////////////////////////////////////////////////////////////
+		/// Gives the user a hint, includes eligibility checking.
 
 		getHint : function()
 		{
+			// TODO: Not yet implemented
+
 			if (this.getHintLeft)
 			{
 				--this.getHintLeft;
-				// TODO:
 			}
 		},
 
 		////////////////////////////////////////////////////////////////////////////////
+		/// Enters killing pair mode, includes eligibility checking.
 
-		killTile : function()
+		killPair : function()
 		{
-			if (this.killTileLeft)
+			// Disable kill flag
+			if (this.killPairFlag)
+				this.killPairFlag = false;
+
+			else if (this.killPairLeft)
 			{
-				--this.killTileLeft;
-				// TODO:
+				// Enable kill pair flag
+				this.killPairFlag = true;
 			}
 		},
 
 		////////////////////////////////////////////////////////////////////////////////
+		/// Performs shutdown on the game when returning to the menu.
 
 		exit : function()
 		{
@@ -221,6 +258,15 @@ Polymer ("llk-main",
 		//----------------------------------------------------------------------------//
 		// Private                                                                    //
 		//----------------------------------------------------------------------------//
+
+		////////////////////////////////////////////////////////////////////////////////
+
+		_updateTime : function()
+		{
+			// Reduce the time left
+			if (--this.timeLeft <= 0)
+				clearInterval (this.timeout);
+		},
 
 		////////////////////////////////////////////////////////////////////////////////
 
@@ -262,22 +308,103 @@ Polymer ("llk-main",
 		},
 
 		////////////////////////////////////////////////////////////////////////////////
+		/// Parts adapted from: github.com/wuleying/lianliankan/blob/master/lianliankan.js
 
 		_checkPath : function (sx, sy, tx, ty)
 		{
-			return true; // TODO:
+			// FIXME: Doesn't properly handle paths outside the board
+
+			// Check if the target is directly adjacent to the source
+			if (sy === ty && (sx-1 === tx || sx+1 === tx)) return true;
+			if (sx === tx && (sy-1 === ty || sy+1 === ty)) return true;
+
+			var sPath = new Array(), tPath = new Array();
+			// Construct vertical lines for both points
+			for (var yy = 0; yy < this.boardSize; ++yy) {
+				sPath.push ({ x: sx, y: yy });
+				tPath.push ({ x: tx, y: yy });
+			}
+
+			// Construct horizontal lines for both points
+			for (var xx = 0; xx < this.boardSize; ++xx) {
+				sPath.push ({ x: xx, y: sy });
+				tPath.push ({ x: xx, y: ty });
+			}
+
+			// Iterate through the source paths
+			for (var i = 0; i < sPath.length; ++i)
+			{
+				// Skip if the tile is currently occupied
+				if (this.gameBoard[sPath[i].y][sPath[i].x])
+					continue;
+
+				// Check if a two-move path is currently possible
+				if (!this._checkTwoLine (sPath[i], { x:sx, y:sy }))
+					continue;
+
+				// Determine source and target path intersections
+				var pos = this._getSamePosition (tPath, sPath[i]);
+
+				// Iterate through the intersections
+				for (var j = 0; j < pos.length; ++j)
+				{
+					// Skip if the tile is currently occupied
+					if (this.gameBoard[pos[j].y][pos[j].x])
+						continue;
+
+					// Check if a two-move path is currently possible
+					if (!this._checkTwoLine (pos[j], { x:tx, y:ty }))
+						continue;
+
+					// Check if three-move paths are valid
+					if (this._checkTwoLine (sPath[i], pos[j]))
+						return true;
+				}
+			}
+
+			return false;
 		},
 
 		////////////////////////////////////////////////////////////////////////////////
 
-		_updateTime : function()
+		_getSamePosition : function (tPath, pos)
 		{
-			// Reduce the time left
-			if (--this.timeLeft <= 0)
+			var paths = new Array ({ x:0, y:0 }, { x:0, y:0 });
+
+			for (var i = 0; i < tPath.length; ++i)
 			{
-				clearInterval (this.timeout);
-				// TODO: game lost
+				// Intersect the X-axis
+				if (tPath[i].x === pos.x)
+					paths[0] = { x:tPath[i].x, y:tPath[i].y };
+
+				// Intersect the Y axis
+				if (tPath[i].y === pos.y)
+					paths[1] = { x:tPath[i].x, y:tPath[i].y };
 			}
+
+			return paths;
+		},
+
+		////////////////////////////////////////////////////////////////////////////////
+
+		_checkTwoLine : function (s, t)
+		{
+			// If same line
+			if (s.x === t.x)
+			{
+				for (var i = s.y; (s.y < t.y ? i < t.y
+					: i > t.y); (s.y < t.y ? i++ : i--))
+					if (this.gameBoard[i][s.x]) return false;
+			}
+
+			else
+			{
+				for (var i = s.x; (s.x < t.x ? i < t.x
+					: i > t.x); (s.x < t.x ? i++ : i--))
+					if (this.gameBoard[s.y][i]) return false;
+			}
+
+			return true;
 		}
 	}
 });

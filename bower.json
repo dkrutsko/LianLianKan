@@ -37,10 +37,15 @@
 
 	"dependencies" :
 	{
-		"polymer"				: "~0.3.3",
-		"paper-elements"		: "Polymer/paper-elements#~0.3.3",
-		"core-animated-pages"	: "polymer/core-animated-pages#~0.3.3",
-		"core-style"			: "polymer/core-style#~0.3.3",
-		"core-localstorage"		: "Polymer/core-localstorage#~0.3.3"
+		"polymer"				: "Polymer/polymer#~0.3.3",
+
+		"core-style"			: "Polymer/core-style#~0.3.3",
+		"core-icon"				: "Polymer/core-icon#~0.3.3",
+		"core-iconset-svg"		: "Polymer/core-iconset-svg#~0.3.3",
+		"core-animated-pages"	: "Polymer/core-animated-pages#~0.3.3",
+		"core-localstorage"		: "Polymer/core-localstorage#~0.3.3",
+
+		"paper-button"			: "Polymer/paper-button#~0.3.3",
+		"paper-progress"		: "Polymer/paper-progress#~0.3.3"
 	}
 }
