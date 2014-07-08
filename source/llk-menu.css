@@ -43,18 +43,9 @@ paper-button
 	transition: background 0.25s ease-in-out;
 }
 
-#auth
+paper-button::shadow #ripple
 {
-	  font-size: 22px;
-	font-weight: 600;
-
-	display: block;
-	display: none;
-	outline: none;
-	margin: 6px 0px 0px 0px;
-	text-decoration: none;
-
-	transition: color 0.25s ease-in-out;
+	color: rgb(48, 48, 48);
 }
 
 paper-button       { background: rgb(140, 140, 140); }
@@ -67,10 +58,6 @@ paper-button:hover { background: rgb(120, 120, 120); }
   #easy:hover      { background: rgb( 77, 128,  26); }
 #medium:hover      { background: rgb(217, 154,  43); }
 #expert:hover      { background: rgb(204,  88,  31); }
-
-#auth              {      color: rgb(170, 170, 170); }
-#auth:visited      {      color: rgb(170, 170, 170); }
-#auth:hover        {      color: rgb(120, 120, 120); }
 
 
 
@@ -96,10 +83,5 @@ paper-button:hover { background: rgb(120, 120, 120); }
 		line-height: 26px;
 
 		margin-bottom: 8px;
-	}
-
-	#auth
-	{
-		font-size: 16px;
 	}
 }

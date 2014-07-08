@@ -27,14 +27,13 @@
 
 <polymer-element name="llk-main">
 <template>
-	<link rel="stylesheet" href="llk-main.css" />
+	<core-animated-pages selected="{{menu.selected}}" transitions="slide-left cross-fade tile-cascade">
 
-	<core-animated-pages selected="{{selected}}" transitions="slide-left cross-fade tile-cascade">
-		<llk-game name="game"></llk-game>
-		<llk-menu name="menu"></llk-menu>
-		<llk-help name="help"></llk-help>
+		<llk-game name="game" menu="{{menu}}" game="{{game}}"></llk-game>
+		<llk-menu name="menu" menu="{{menu}}" game="{{game}}"></llk-menu>
+		<llk-help name="help" menu="{{menu}}" game="{{game}}"></llk-help>
+
 	</core-animated-pages>
-
 </template>
 
 
@@ -43,13 +42,6 @@
 // Scripts                                                                    //
 /////////////////////////////////////////////////////////////////////////////-->
 
-<script>
+<script type="text/javascript" src="llk-main.js"></script>
 
-	Polymer ("llk-main",
-	{
-		transist : "left",
-		selected : "menu"
-	});
-
-</script>
 </polymer-element>

@@ -9,7 +9,9 @@
 // Imports                                                                    //
 /////////////////////////////////////////////////////////////////////////////-->
 
-<!-- Imports go here -->
+<link rel="import" href="../vendor/paper-button/paper-button.html">
+<link rel="import" href="../vendor/paper-progress/paper-progress.html">
+<link rel="import" href="../vendor/core-icon/core-icon.html">
 
 
 
@@ -17,24 +19,48 @@
 // Elements                                                                   //
 /////////////////////////////////////////////////////////////////////////////-->
 
-<polymer-element name="llk-game">
+<polymer-element name="llk-game" attributes="menu game">
 <template>
 	<link rel="stylesheet" href="llk-game.css" />
 
 	<section layout vertical center center-justified cross-fade>
 
-		<div class="tile" flex vertical layout>
-			<paper-button id="paper_button" label="Easy" on-tap="{{TAP}}"></paper-button>
+		<div class="container" layout horizontal>
+
+			<core-icon size="32" id="menu"
+				on-tap="{{showMenu}}" icon="llk-icons:back"   ></core-icon>
+			<core-icon size="32" id="restart"
+				on-tap="{{restart }}" icon="llk-icons:restart"></core-icon>
+
+			<div flex></div>
+
+			<div layout vertical center id="score">
+				<h1>{{game.currScore}}</h1><h2>SCORE</h2>
+			</div>
+			<div layout vertical center id="best">
+				<h1>{{game.bestScore[game.difficulty]}}</h1><h2>BEST</h2>
+			</div>
+
 		</div>
-		<div class="tile" flex vertical layout>
-			<paper-button id="Paper-button1" label="Medium"></paper-button>
+
+		<paper-progress id="timer" class="container" value="{{game.timeLeft}}"></paper-progress>
+
+		<div id="board" class="container" layout vertical>
+			<template repeat="{{i in game.boardSize}}">
+				<div class="tiles {{game.difficulty}}" flex layout horizontal>
+					<template repeat="{{i in game.boardSize}}">
+						<paper-button class="tile {{game.difficulty}}" flex istoggle icon="llk-icons:icon-2"></paper-button>
+					</template>
+				</div>
+			</template>
 		</div>
-		<div class="tile" flex vertical layout>
-			<paper-button id="Paper-button2" label="Hard"></paper-button>
+
+		<div class="container" layout horizontal>
+			<paper-button id="add-time" flex label="{{game.addTimeLeft}}" on-tap="{{addTime}}"></paper-button>
+			<paper-button id="get-hint" flex label="{{game.getHintLeft}}" on-tap="{{getHint}}"></paper-button>
 		</div>
 
 	</section>
-
 </template>
 
 
@@ -47,11 +73,15 @@
 
 	Polymer ("llk-game",
 	{
-		TAP : function()
+		restart : function() { this.game.restart(); },
+		addTime : function() { this.game.addTime(); },
+		getHint : function() { this.game.getHint(); },
+
+		showMenu : function()
 		{
-			this.parentElement.transist = "tile";
-			this.parentElement.selected = "menu";
-		},
+			this.menu.transist = "tile";
+			this.menu.selected = "menu";
+		}
 	});
 
 </script>

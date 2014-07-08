@@ -17,13 +17,13 @@
 // Elements                                                                   //
 /////////////////////////////////////////////////////////////////////////////-->
 
-<polymer-element name="llk-help">
+<polymer-element name="llk-help" attributes="menu game">
 <template>
 	<link rel="stylesheet" href="llk-help.css" />
 
 	<section layout vertical center center-justified fade slide-left>
 
-		<core-icon size="32"
+		<core-icon size="32" id="menu"
 			icon="llk-icons:back" on-tap="{{showMenu}}"></core-icon>
 
 		<h1>How to Play</h1>
@@ -35,7 +35,7 @@
 				<h3>This is a test</h3>
 			</div>
 			<div layout vertical center>
-				<div class="example example-2" id="test"></div>
+				<div class="example example-2"></div>
 				<h3>This is a test</h3>
 			</div>
 		</div>
@@ -66,8 +66,8 @@
 	{
 		showMenu : function()
 		{
-			this.parentElement.transist = "left";
-			this.parentElement.selected = "menu";
+			this.menu.transist = "left";
+			this.menu.selected = "menu";
 		}
 	});
 

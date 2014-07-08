@@ -17,16 +17,16 @@
 // Elements                                                                   //
 /////////////////////////////////////////////////////////////////////////////-->
 
-<polymer-element name="llk-menu">
+<polymer-element name="llk-menu" attributes="menu game">
 <template>
 	<link rel="stylesheet" href="llk-menu.css" />
 
 	<section layout vertical center center-justified fade
-		slide-left?="{{parentElement.transist === 'left'}}">
+		slide-left?="{{menu.transist === 'left'}}">
 
 		<div id="logo"
-			   cross-fade?="{{parentElement.transist === 'tile'}}"></div>
-		<div tile-cascade?="{{parentElement.transist === 'tile'}}" fade>
+			   cross-fade?="{{menu.transist === 'tile'}}"></div>
+		<div tile-cascade?="{{menu.transist === 'tile'}}" fade>
 			<div><paper-button id="easy"   on-tap="{{playGame}}" label="Easy"       ></paper-button></div>
 			<div><paper-button id="medium" on-tap="{{playGame}}" label="Medium"     ></paper-button></div>
 			<div><paper-button id="expert" on-tap="{{playGame}}" label="Expert"     ></paper-button></div>
@@ -48,20 +48,17 @@
 	{
 		playGame : function (event)
 		{
-			var size = 6;
-			// Determine game-board size using target ID
-			if (event.target.id === "medium") size =  8;
-			if (event.target.id === "expert") size = 12;
+			// Restart game based on difficulty
+			this.game.restart (event.target.id);
 
-			// TODO: Start the game
-			this.parentElement.transist = "tile";
-			this.parentElement.selected = "game";
+			this.menu.transist = "tile";
+			this.menu.selected = "game";
 		},
 
 		showHelp : function()
 		{
-			this.parentElement.transist = "left";
-			this.parentElement.selected = "help";
+			this.menu.transist = "left";
+			this.menu.selected = "help";
 		}
 	});
 

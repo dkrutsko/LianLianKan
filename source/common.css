@@ -16,7 +16,14 @@ html
 	 width: 100%;
 	height: 100%;
 	font-family: "Open Sans", sans-serif;
+
+	cursor: default;
 	overflow: hidden;
+
+	-webkit-user-select: none;
+	    -ms-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
 }
 
 body
@@ -29,11 +36,6 @@ body
 *
 {
 	-webkit-touch-callout: none;
-
-	-webkit-user-select: none;
-	    -ms-user-select: none;
-	   -moz-user-select: none;
-	        user-select: none;
 }
 
 ::-moz-selection
