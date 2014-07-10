@@ -28,7 +28,9 @@
 
 <polymer-element name="llk-main">
 <template>
-	<core-animated-pages selected="{{menu.selected}}" transitions="slide-left cross-fade tile-cascade">
+	<core-animated-pages selected="{{menu.selected}}"
+		transitions="slide-left cross-fade tile-cascade"
+		style="width: 100%; height: 100%;">
 
 		<llk-game name="game" menu="{{menu}}" game="{{game}}"></llk-game>
 		<llk-menu name="menu" menu="{{menu}}" game="{{game}}"></llk-menu>

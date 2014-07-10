@@ -18,7 +18,7 @@ html
 	font-family: "Open Sans", sans-serif;
 
 	cursor: default;
-	overflow: hidden;
+	overflow-x: hidden;
 
 	-webkit-user-select: none;
 	    -ms-user-select: none;

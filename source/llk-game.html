@@ -23,7 +23,7 @@
 <template>
 	<link rel="stylesheet" href="llk-game.css" />
 
-	<section layout vertical center center-justified cross-fade>
+	<section id="page" layout vertical center cross-fade>
 
 		<div class="container" layout horizontal>
 
@@ -46,7 +46,7 @@
 		<paper-progress id="timer" class="container" value="{{game.timeLeft}}"></paper-progress>
 
 		<div id="board" class="container" layout vertical>
-			<div class="message" layout vertical center center-justified hidden?="{{game.timeLeft}}" on-tap="{{restart}}">
+			<div class="message" layout vertical center center-justified hidden?="{{game.timeLeft}}">
 
 				<h1>TIME'S UP!</h1>
 				<template if="{{game.currScore <  game.bestScores[game.difficulty]}}">
@@ -61,7 +61,7 @@
 				<div class="tiles {{game.difficulty}}" flex layout horizontal>
 					<template repeat="{{x in game.boardArray}}">
 
-						<paper-button flex istoggle class="tile {{game.difficulty}}"
+						<paper-button flex istoggle class="tile"
 							data-x="{{x}}" data-y="{{y}}"  data-type="{{game.gameBoard[y][x]}}"
 							on-up="{{selected}}" icon="llk-icons:icon-{{game.gameBoard[y][x]}}"></paper-button>
 
@@ -74,9 +74,6 @@
 
 			<paper-button flex id="add-time"  hidden?="{{!game.timeLeft}}"
 				on-tap="{{addTime }}" label="Add Time: {{game.addTimeLeft}}"></paper-button>
-
-			<paper-button flex id="get-hint"  hidden?="{{!game.timeLeft}}"
-				on-tap="{{getHint }}" label="Get Hint: {{game.getHintLeft}}"></paper-button>
 
 			<paper-button flex id="kill-pair" hidden?="{{!game.timeLeft}}"
 				on-tap="{{killPair}}" label="Remove Pair: {{game.killPairLeft}}"
@@ -99,7 +96,6 @@
 	{
 		restart  : function() { this.game.restart (); },
 		addTime  : function() { this.game.addTime (); },
-		getHint  : function() { this.game.getHint (); },
 		killPair : function() { this.game.killPair(); },
 
 		showMenu : function()

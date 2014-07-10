@@ -11,7 +11,7 @@
 /* Default                                                                    */
 /*----------------------------------------------------------------------------*/
 
-section
+#page
 {
 	padding: 30px 10px 10px 10px;
 }
@@ -193,7 +193,6 @@ paper-button::shadow #ripple
 	z-index: 1000;
 	position: absolute;
 	left: 0; top: 0;
-	cursor:pointer;
 
 	border-radius: 6px;
 	background: rgba(225, 225, 225, 0.95);
@@ -226,7 +225,7 @@ paper-button::shadow #ripple
 	margin: 0px 0px 10px 0px;
 }
 
-#add-time, #get-hint, #kill-pair
+#add-time, #kill-pair
 {
 	  font-size: 16px;
 	font-weight: 600;
@@ -246,23 +245,17 @@ paper-button::shadow #ripple
 {
 	   border-top-right-radius: 0px;
 	border-bottom-right-radius: 0px;
-}
-
-#get-hint
-{
-	border-radius: 0px;
-	 border-left-width: 0px;
-	border-right-width: 0px;
+	border-right-width: 1px;
 }
 
 #kill-pair
 {
 	   border-top-left-radius: 0px;
 	border-bottom-left-radius: 0px;
+	border-left-width: 1px;
 }
 
  #add-time:hover,
- #get-hint:hover,
 #kill-pair:hover
 {
 	background: rgb(205, 205, 205);
@@ -276,7 +269,7 @@ paper-button::shadow #ripple
 
 @media all and (max-width: 540px)
 {
-	section
+	#page
 	{
 		padding: 15px 10px 10px 10px;
 	}
@@ -403,7 +396,7 @@ paper-button::shadow #ripple
 		margin: 0px 0px 5px 0px;
 	}
 
-	#add-time, #get-hint, #kill-pair
+	#add-time, #kill-pair
 	{
 		  font-size: 10px;
 		line-height: 18px;

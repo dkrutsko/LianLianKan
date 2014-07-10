@@ -27,7 +27,7 @@ Polymer ("llk-main",
 		// Properties                                                                 //
 		//----------------------------------------------------------------------------//
 
-		boardArray		: [],			// Board size in array form (for templates)
+		boardArray		: [],			// Board size in array form
 		boardSize		: 0,			// Actual size of the board
 		difficulty		: "easy",		// Current difficulty setting
 		totalTypes		: 8,			// Number of available icons
@@ -43,14 +43,12 @@ Polymer ("llk-main",
 		timeLeft		: 0,			// Time remaining (out of 100)
 		timeout			: null,			// Handle to timeLeft interval
 
-		addTimeLeft		: 0,			// Number of available add time's
-		getHintLeft		: 0,			// Number of available get hint's
-		killPairLeft	: 0,			// Number of available kill pair's
+		addTimeLeft		: 0,			// Number of available add times
+		killPairLeft	: 0,			// Number of available kill pairs
+		killPairFlag	: false,		// Flag for enabling pair killing
 
 		gameBoard		: null,			// The game board model [y][x]=tile
 		selected		: null,			// Currently selected board element
-
-		killPairFlag	: false,		// Flag for enabling pair killing
 
 
 
@@ -67,24 +65,22 @@ Polymer ("llk-main",
 			this.currScore    = 0;
 			this.timeLeft     = 100;
 
-			this.addTimeLeft  = 5;
-			this.getHintLeft  = 5;
-			this.killPairLeft = 5;
-
+			this.addTimeLeft  = 4;
+			this.killPairLeft = 6;
 			this.killPairFlag = false;
 
 			// Check for the difficulty argument
 			if (typeof difficulty !== "undefined")
 				this.difficulty = difficulty;
 
-			this.boardSize = 6;
+			this.boardSize = 8;
 			// Determine the game board size based on difficulty
-			if (this.difficulty === "medium") this.boardSize =  8;
-			if (this.difficulty === "expert") this.boardSize = 12;
+			if (this.difficulty === "medium") this.boardSize = 10;
+			if (this.difficulty === "expert") this.boardSize = 14;
 
 			this.boardArray = [];
 			// Convert board size into numbers array
-			for (var i = 0; i < this.boardSize; ++i)
+			for (var i = 1; i < this.boardSize-1; ++i)
 				this.boardArray.push (i);
 
 			if (this.selected !== null)
@@ -152,13 +148,6 @@ Polymer ("llk-main",
 
 						else
 						{
-							if (this.killPairFlag)
-							{
-								// Reset the kill pair flag
-								this.killPairFlag = false;
-								--this.killPairLeft;
-							}
-
 							// Deselect the selected element
 							element.removeAttribute ("active");
 
@@ -167,35 +156,40 @@ Polymer ("llk-main",
 							this.gameBoard[sy][sx] = 0;
 							this.gameBoard[ty][tx] = 0;
 
-							var gameWon = true;
-							// Check the board for a possible win
-							for (var y = 0; y < this.boardSize; ++y)
-							for (var x = 0; x < this.boardSize; ++x)
+							if (this._checkWin())
 							{
-								if (this.gameBoard[y][x] !== 0)
-								{
-									x = this.boardSize;
-									y = this.boardSize;
-									gameWon = false;
+								if (this.difficulty === "medium") {
+									this. addTimeLeft += 1;
+									this.killPairLeft += 1;
 								}
-							}
 
-							if (gameWon)
-							{
-								// Reset variables
-								++this.addTimeLeft;
-								++this.getHintLeft;
-								++this.killPairLeft;
+								if (this.difficulty === "expert") {
+									this. addTimeLeft += 2;
+									this.killPairLeft += 2;
+								}
+
+								this. addTimeLeft += 1;
+								this.killPairLeft += 1;
 								this.currScore += 25;
 
 								// Create board
 								this._create();
 							}
 
-							this.currScore += 5;
-							// Update the current score and check if new best score
-							if (this.bestScores[this.difficulty] < this.currScore)
-								this.bestScores[this.difficulty] = this.currScore;
+							if (this.killPairFlag)
+							{
+								// Reset the kill pair flag
+								this.killPairFlag  = false;
+								this.killPairLeft -= 1;
+							}
+
+							else
+							{
+								this.currScore += 5;
+								// Update the current score and check if new best score
+								if (this.bestScores[this.difficulty] < this.currScore)
+									this.bestScores[this.difficulty] = this.currScore;
+							}
 						}
 					}
 				}
@@ -203,7 +197,7 @@ Polymer ("llk-main",
 		},
 
 		////////////////////////////////////////////////////////////////////////////////
-		/// Add's additional time, includes eligibility checking.
+		/// Adds additional time, includes eligibility checking.
 
 		addTime : function()
 		{
@@ -212,19 +206,6 @@ Polymer ("llk-main",
 			{
 				this.timeLeft += 15;
 				--this.addTimeLeft;
-			}
-		},
-
-		////////////////////////////////////////////////////////////////////////////////
-		/// Gives the user a hint, includes eligibility checking.
-
-		getHint : function()
-		{
-			// TODO: Not yet implemented
-
-			if (this.getHintLeft)
-			{
-				--this.getHintLeft;
 			}
 		},
 
@@ -245,7 +226,7 @@ Polymer ("llk-main",
 		},
 
 		////////////////////////////////////////////////////////////////////////////////
-		/// Performs shutdown on the game when returning to the menu.
+		/// Performs shutdown of the game when returning to the menu.
 
 		exit : function()
 		{
@@ -270,20 +251,38 @@ Polymer ("llk-main",
 
 		////////////////////////////////////////////////////////////////////////////////
 
+		_checkWin : function()
+		{
+			// Check the board for a possible win
+			for (var y = 0; y < this.boardSize; ++y)
+			for (var x = 0; x < this.boardSize; ++x)
+				if (this.gameBoard[y][x] !== 0) return false;
+
+			return true;
+		},
+
+		////////////////////////////////////////////////////////////////////////////////
+
 		_create : function()
 		{
 			// Initialize the game board
 			var size  = this.boardSize;
 			var board = new Array (size);
 
-			var s = size*size;
 			var monitor = { };
+			var s = Math.pow (size - 2, 2);
 			// Populate board pseudo-randomly
 			for (var y = 0; y < size; ++y)
 			{
 				board[y] = new Array (size);
 				for (var x = 0; x < size; ++x)
 				{
+					// Set outer board to nothing
+					if (y === 0 || y === size-1 ||
+						x === 0 || x === size-1) {
+						board[y][x] = 0; continue;
+					}
+
 					var tile = 0;
 					// Perform pairing checks
 					if (--s <= this.totalTypes)
@@ -308,12 +307,10 @@ Polymer ("llk-main",
 		},
 
 		////////////////////////////////////////////////////////////////////////////////
-		/// Parts adapted from: github.com/wuleying/lianliankan/blob/master/lianliankan.js
+		/// Parts adapted from: https://github.com/wuleying/lianliankan
 
 		_checkPath : function (sx, sy, tx, ty)
 		{
-			// FIXME: Doesn't properly handle paths outside the board
-
 			// Check if the target is directly adjacent to the source
 			if (sy === ty && (sx-1 === tx || sx+1 === tx)) return true;
 			if (sx === tx && (sy-1 === ty || sy+1 === ty)) return true;
@@ -331,10 +328,10 @@ Polymer ("llk-main",
 				tPath.push ({ x: xx, y: ty });
 			}
 
-			// Iterate through the source paths
+			// Iterate through all the source paths
 			for (var i = 0; i < sPath.length; ++i)
 			{
-				// Skip if the tile is currently occupied
+				// Continue if the tile is currently occupied
 				if (this.gameBoard[sPath[i].y][sPath[i].x])
 					continue;
 
@@ -356,7 +353,7 @@ Polymer ("llk-main",
 					if (!this._checkTwoLine (pos[j], { x:tx, y:ty }))
 						continue;
 
-					// Check if three-move paths are valid
+					// Check if a three-move path is possible
 					if (this._checkTwoLine (sPath[i], pos[j]))
 						return true;
 				}
@@ -370,16 +367,15 @@ Polymer ("llk-main",
 		_getSamePosition : function (tPath, pos)
 		{
 			var paths = new Array ({ x:0, y:0 }, { x:0, y:0 });
-
 			for (var i = 0; i < tPath.length; ++i)
 			{
 				// Intersect the X-axis
 				if (tPath[i].x === pos.x)
-					paths[0] = { x:tPath[i].x, y:tPath[i].y };
+					paths[0] = { x: tPath[i].x, y: tPath[i].y };
 
-				// Intersect the Y axis
+				// Intersect the Y-axis
 				if (tPath[i].y === pos.y)
-					paths[1] = { x:tPath[i].x, y:tPath[i].y };
+					paths[1] = { x: tPath[i].x, y: tPath[i].y };
 			}
 
 			return paths;
@@ -392,16 +388,16 @@ Polymer ("llk-main",
 			// If same line
 			if (s.x === t.x)
 			{
-				for (var i = s.y; (s.y < t.y ? i < t.y
-					: i > t.y); (s.y < t.y ? i++ : i--))
-					if (this.gameBoard[i][s.x]) return false;
+				for (var y = s.y; (s.y < t.y ? y < t.y
+					: y > t.y); (s.y < t.y ? ++y : --y))
+					if (this.gameBoard[y][s.x]) return false;
 			}
 
 			else
 			{
-				for (var i = s.x; (s.x < t.x ? i < t.x
-					: i > t.x); (s.x < t.x ? i++ : i--))
-					if (this.gameBoard[s.y][i]) return false;
+				for (var x = s.x; (s.x < t.x ? x < t.x
+					: x > t.x); (s.x < t.x ? ++x : --x))
+					if (this.gameBoard[s.y][x]) return false;
 			}
 
 			return true;

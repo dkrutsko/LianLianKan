@@ -1,10 +1,10 @@
 {
 	"name"					: "lian-lian-kan",
-	"version"				: "0.0.0",
+	"version"				: "0.1.0",
 	"license"				: "Zlib",
 	"main"					: "main.html",
 
-	"description"			: "",
+	"description"			: "An HTML 5 remake of the game Lian Lian Kan",
 	"homepage"				: "https://dkrutsko.github.io/LianLianKan",
 
 	"authors" :

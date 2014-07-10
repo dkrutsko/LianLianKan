@@ -11,7 +11,7 @@
 /* Default                                                                    */
 /*----------------------------------------------------------------------------*/
 
-section
+#page
 {
 	padding: 10px;
 }
@@ -23,7 +23,6 @@ section
 	z-index: 1000;
 	background: url("llk-logo.svg");
 	background-size: 544px 274px;
-	margin: 0px 0px 12px 0px;
 }
 
 paper-button
